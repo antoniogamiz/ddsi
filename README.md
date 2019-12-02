@@ -1,22 +1,32 @@
-# DDSI
+~~~bash
+# configurar la base de datos (SOLO UNA VEZ)
+sudo apt install mysql-server
+sudo apt install mysql-client
 
-# Instalar paquetes
+sudo mysqld_safe --skip-grant-tables &
+mysql -uroot
 
-Instalamos los paquetes mysql-server y mysql-client
 
-# Cambiar la contraseña de root
+use mysql;
 
-https://support.rackspace.com/how-to/mysql-resetting-a-lost-mysql-root-password/
+update user set authentication_string=PASSWORD("mynewpassword") where User='root';
 
-# Creación de la BBDD
+flush privileges;
 
-Una vez instalado mysql creamos las tablas y añadimos algunos objetos:
+quit
 
+# para arrancar o parar la base de datos:
+sudo /etc/init.d/mysql stop
+sudo /etc/init.d/mysql start
+
+# login en la base de datos
+mysql -u root -p
+
+# cargar las tablas y los datos
 mysql -u root -p < tablas.sql
 mysql -u root -p < objetos.sql
 
-# Programa
+# ejecutar la interfaz gráfica
+python3 main.py localhost root <password> ddsi
+~~~
 
-Lanzamos el programa mediante:
-
-python3 Main.py localhost root CONTRASEÑA ddsi
