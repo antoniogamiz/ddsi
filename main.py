@@ -1,7 +1,6 @@
 from tkinter import *
 import pymysql
 from tkinter import messagebox
-from pypika import Table, AliasedQuery, Query
 
 
 class App(object):
