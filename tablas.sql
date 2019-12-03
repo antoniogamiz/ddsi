@@ -1,117 +1,127 @@
 DROP DATABASE IF EXISTS ddsi;
+
 CREATE DATABASE ddsi;
+
 USE ddsi;
 
 DROP TABLE IF EXISTS PuestoTrabajo;
+
 DROP TABLE IF EXISTS Empleado;
+
 DROP TABLE IF EXISTS Producto;
+
 DROP TABLE IF EXISTS Reserva;
+
 DROP TABLE IF EXISTS Cuenta;
+
 DROP TABLE IF EXISTS Cliente;
+
 DROP TABLE IF EXISTS Socio;
+
 DROP TABLE IF EXISTS Plato;
+
 DROP TABLE IF EXISTS Menu;
+
 DROP TABLE IF EXISTS Ingrediente;
+
 DROP TABLE IF EXISTS Contiene;
+
 DROP TABLE IF EXISTS Compuesto;
 
 -- Elena
-
-create table PuestoTrabajo
-(
-  nombre VARCHAR(60) PRIMARY KEY,
+create table PuestoTrabajo (
+  nombre VARCHAR(60),
   sueldo INT,
   horasMaximas INT,
   horariosTrabajo VARCHAR(300),
+  PRIMARY KEY (nombre)
 );
 
-create table Empleado
-(
-  DNI VARCHAR(9) PRIMARY KEY,
+create table Empleado (
+  DNI VARCHAR(9),
   nombre VARCHAR(60) NOT NULL,
   nomina INT,
-  CONSTRAINT puestoTrabajo FOREIGN KEY (nombre) REFERENCES PuestoTrabajo(nombre)
+  CONSTRAINT puestoTrabajo FOREIGN KEY (nombre) REFERENCES PuestoTrabajo(nombre),
+  PRIMARY KEY (DNI)
 );
 
 -- Antonio
-
-create table Producto
-(
-  nombre VARCHAR(20) PRIMARY KEY,
+create table Producto (
+  nombre VARCHAR(20),
   stock INT,
   fechaCaducidad DATE,
   nombreDistribuidor VARCHAR(20),
-  limiteAlmacenamiento INT
+  limiteAlmacenamiento INT,
+  PRIMARY KEY (nombre)
 );
 
 -- Carmen
-
-create table Reserva
-(
-  idReserva VARCHAR(15) PRIMARY KEY,
-  FOREIGN KEY (DNI) REFERENCES Cliente(DNI),
-  nombre VARCHAR(20),
-  fecha DATE,
-  hora TIME
-);
-
-create table Cuenta
-(
-  idCuenta VARCHAR(15) PRIMARY KEY,
+create table Cuenta (
+  idCuenta VARCHAR(15) NOT NULL PRIMARY KEY,
   mesa INT,
   fecha DATE,
   hora TIME
 );
 
-create table Cliente
-(
-  DNI VARCHAR(9) PRIMARY KEY,
+create table Cliente (
+  DNI VARCHAR(9) NOT NULL PRIMARY KEY,
   nombre VARCHAR(20),
-  FOREIGN KEY (idCuenta) REFERENCES Cuenta(idCuenta),
-  FOREIGN KEY (idReserva) REFERENCES Cliente(idReserva)
+  idCuenta VARCHAR(15) NOT NULL,
+  FOREIGN KEY (idCuenta) REFERENCES Cuenta (idCuenta)
 );
 
-create table Socio
-(
-  FOREIGN KEY (DNI) REFERENCES Cliente(DNI),
+create table Reserva (
+  idReserva VARCHAR(15) PRIMARY KEY,
+  nombre VARCHAR(20),
+  fecha DATE,
+  hora TIME,
+  DNI VARCHAR(9) NOT NULL,
+  FOREIGN KEY (DNI) REFERENCES Cliente(DNI)
+);
+
+create table Socio (
   numSocio INT,
   telefono INT,
-  puntos INT
+  puntos INT,
+  DNI VARCHAR(9) NOT NULL,
+  FOREIGN KEY (DNI) REFERENCES Cliente(DNI)
 );
 
 -- Laura
-
-create table Plato
-(
+create table Plato (
   idPlato VARCHAR(8) PRIMARY KEY,
-  CONSTRAINT producto FOREIGN KEY (nombre) REFERENCES Producto(nombre),
-  precio DEC(10,2),
-  nombre VARCHAR(30)
+  precio DEC(10, 2),
+  nombre VARCHAR(30),
+  producto VARCHAR(20),
+  FOREIGN KEY (producto) REFERENCES Producto(nombre)
 );
 
-create table Menu
-(
+create table Menu (
   idMenu VARCHAR(8) PRIMARY KEY,
   nombre VARCHAR(30),
-  precio DEC(10,2),
+  precio DEC(10, 2),
   categoria VARCHAR(30),
-  CONSTRAINT plato FOREIGN KEY (identificador) REFERENCES Plato(identificador)
+  idPlato VARCHAR(8),
+  FOREIGN KEY (idPlato) REFERENCES Plato(idPlato)
 );
 
-create table Contiene
-(
+create table Contiene (
+  idMenu VARCHAR(8),
+  idCuenta VARCHAR(15),
   FOREIGN KEY (idMenu) REFERENCES Menu(idMenu),
   FOREIGN KEY (idCuenta) REFERENCES Cliente(idCuenta)
 );
 
-create table Ingrediente
-(
+create table Ingrediente (
+  nombre VARCHAR(20),
+  idPlato VARCHAR(8),
   FOREIGN KEY (nombre) REFERENCES Producto(nombre),
   FOREIGN KEY (idPlato) REFERENCES Plato(idPlato)
 );
 
-create table Compuesto
-(
+create table Compuesto (
+  idMenu VARCHAR(8),
+  idPlato VARCHAR(8),
   FOREIGN KEY (idMenu) REFERENCES Menu (idMenu),
   FOREIGN KEY (idPlato) REFERENCES Plato(idPlato),
   orden INT

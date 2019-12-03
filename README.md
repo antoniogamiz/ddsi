@@ -9,11 +9,13 @@ mysql -uroot
 
 use mysql;
 
-update user set authentication_string=PASSWORD("mynewpassword") where User='root';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'test'; 
 
 flush privileges;
 
 quit
+
+sudo service mysql restart
 
 # para arrancar o parar la base de datos:
 sudo /etc/init.d/mysql stop
@@ -27,6 +29,6 @@ mysql -u root -p < tablas.sql
 mysql -u root -p < objetos.sql
 
 # ejecutar la interfaz gráfica
-python3 main.py localhost root <password> ddsi
+python3 main.py root test
 ~~~
 
