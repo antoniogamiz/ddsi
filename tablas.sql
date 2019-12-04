@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS Compuesto;
 create table PuestoTrabajo (
   nombre VARCHAR(60),
   sueldo INT,
-  horasMaximas INT,
+  horasMaximasSemana INT,
   horariosTrabajo VARCHAR(300),
   PRIMARY KEY (nombre)
 );
