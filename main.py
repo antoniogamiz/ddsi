@@ -23,6 +23,11 @@ class App(object):
         self.query_button.configure(command=self.insert_product)
         self.query_button.grid(row=index, column=0, columnspan=5)
         index += 1
+        
+        self.query_button = Button(window, text="Add employee")
+        self.query_button.configure(command=self.insert_employee)
+        self.query_button.grid(row=index, column=0, columnspan=5)
+        index += 1
 
     def query(self):
         print()
@@ -33,6 +38,12 @@ class App(object):
 
     def query_products(self):
         self.query_msg = "SELECT * FROM Producto"
+        self.query()
+        rows = self.cursor.fetchall()
+        print(rows)
+        
+    def query_employees(self):
+        self.query_msg = "SELECT * FROM Empleado"
         self.query()
         rows = self.cursor.fetchall()
         print(rows)
@@ -71,6 +82,29 @@ class App(object):
             name, stock, expdate, provider, limit)
         self.query()
 
+    def insert_employee(self):
+        self.employee_window = Tk()
+        self.employee_window.wm_title("Employee Management")
+
+        self.employee_name = self.new_entry(self.employee_window, "Name: ", 0)
+        self.employee_id = self.new_entry(self.employee_window, "Id: ", 1)
+        self.employee_paysheet = self.new_entry(
+            self.employee_window, "Paysheet: ", 2)
+        self.employee_job = self.new_entry(
+            self.employee_window, "Job: ", 3)
+
+        add_button = Button(self.employee_window, text="Add")
+        add_button.configure(command=self.add_employee)
+        add_button.grid(row=5, column=0, columnspan=4)
+
+    def add_employee(self):
+        name = self.employee_name.get()
+        id = int(self.employee_id.get())
+        paysheet = int(self.employee_paysheet.get())
+        job = self.employee_job.get()
+        self.query_msg = 'INSERT INTO Empleado VALUES ("{}", {}, {}, "{}")'.format(
+            name, id, paysheet, job)
+        self.query()        
 
 def main(argv):
     user = argv[1]
