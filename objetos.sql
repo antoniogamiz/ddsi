@@ -17,4 +17,22 @@ INSERT INTO Producto VALUES ("tomate" , 100, '2020/12/27', "mercadona", 200 );
 INSERT INTO Producto VALUES ("pepino" , 100, '2020/11/17', "lidl"     , 100 );
 INSERT INTO Producto VALUES ("cebolla", 50 , '2020/10/05', "carrefour", 200 );
 INSERT INTO Producto VALUES ("queso"  , 10 , '2020/09/03', "coviran"  , 50  );
+INSERT INTO Producto VALUES ("carne"  , 1  , '2020/12/01',
+"mercadona", 50  );
+INSERT INTO Producto VALUES ("pan"    , 5  , '2020/12/01',
+"mercadona", 50  );
+INSERT INTO Producto VALUES ("arroz"    , 5  , '2020/12/01',
+"mercadona", 50  );
+
+
+-- Laura
+
+INSERT INTO Plato VALUES ( "hamburguesa" , 12);
+INSERT INTO Plato VALUES ( "risotto"	 , 14);
+
+INSERT INTO Ingrediente VALUES ( "tomate"  , "hamburguesa");
+INSERT INTO Ingrediente VALUES ( "cebolla" , "hamburguesa");
+INSERT INTO Ingrediente VALUES ( "queso"   , "hamburguesa");
+INSERT INTO Ingrediente VALUES ( "queso"   , "risotto");
+
 

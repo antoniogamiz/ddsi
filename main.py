@@ -48,6 +48,12 @@ class App(object):
         rows = self.cursor.fetchall()
         print(rows)
 
+    def query_plates(self):
+        self.query_msg = "SELECT * FROM Plato"
+        self.query()
+        rows = self.cursor.fetchall()
+        print(rows)
+
     # auxiliar function
     def new_entry(self, window, text, row):
         label = Label(window, text=text)
@@ -105,6 +111,39 @@ class App(object):
         self.query_msg = 'INSERT INTO Empleado VALUES ("{}", {}, {}, "{}")'.format(
             id,name, paysheet, job)
         self.query()        
+	
+    def insert_plate(self):
+        self.plate_window = Tk()
+        self.plate_window.wm_title("Menu Management")
+
+        self.plate_name = self.new_entry(self.plate_window, "Name: ", 0)
+        self.plate_price = self.new_entry(self.plate_window, "Price: ", 1)
+        self.plate_ingredient = self.new_entry(
+            self.plate_window, "Ingrediente principal: ", 2)
+	
+	self.plate_ingredient2 = self.new_entry(
+            self.plate_window, "Ingrediente secundario: ", 3)
+	
+	 self.plate_ingredient3 = self.new_entry(
+            self.plate_window, "Ingrediente terciario: ", 4)
+	
+
+
+        add_button = Button(self.plate_window, text="Add")
+        add_button.configure(command=self.add_plate)
+        add_button.grid(row=5, column=0, columnspan=4)
+
+def add_plate(self):
+        name = self.plate_name.get()
+        price = int(self.plate_price.get())
+        ingredient = self.plate_ingredient.get()
+	ingredient2 = self.plate_ingredient2.get()
+	ingredient3 = self.plate_ingredient3.get()
+        self.query_msg = 'INSERT INTO Plato VALUES ("{}", {}, {}, "{}")'.format(name, price, ingredient)  
+	self.query_msg = 'INSER INTO Ingrediente VALUES ("{}", "{}")'.format(name, 
+    
+	self.query() 
+
 
 def main(argv):
     user = argv[1]
