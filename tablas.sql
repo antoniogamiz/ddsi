@@ -89,43 +89,39 @@ create table Socio (
 
 -- Laura
 create table Plato (
-  idPlato VARCHAR(8) PRIMARY KEY,
-  precio DEC(10, 2),
-  nombre VARCHAR(30),
-  producto VARCHAR(20),
-  FOREIGN KEY (producto) REFERENCES Producto(nombre)
+  nombrePlato VARCHAR(30) PRIMARY KEY,
+  precio DEC(10, 2)
 );
+
 
 create table Menu (
-  idMenu VARCHAR(8) PRIMARY KEY,
-  nombre VARCHAR(30),
+  nombreMenu VARCHAR(30) PRIMARY KEY,
   precio DEC(10, 2),
-  categoria VARCHAR(30),
-  idPlato VARCHAR(8),
-  FOREIGN KEY (idPlato) REFERENCES Plato(idPlato)
+  categoria VARCHAR(30)
 );
 
+
 create table Contiene (
-  idMenu VARCHAR(8),
+  nombreMenu VARCHAR(8),
   idCuenta VARCHAR(15),
-  FOREIGN KEY (idMenu) REFERENCES Menu(idMenu),
+  FOREIGN KEY (nombreMenu) REFERENCES Menu(nombreMenu),
   FOREIGN KEY (idCuenta) REFERENCES Cliente(idCuenta),
-  PRIMARY KEY (idMenu,idCuenta)
+  PRIMARY KEY (nombreMenu,idCuenta)
 );
 
 create table Ingrediente (
   nombre VARCHAR(20),
-  idPlato VARCHAR(8),
+  nombrePlato VARCHAR(8),
   FOREIGN KEY (nombre) REFERENCES Producto(nombre),
-  FOREIGN KEY (idPlato) REFERENCES Plato(idPlato),
-  PRIMARY KEY (nombre,idPlato)
+  FOREIGN KEY (nombrePlato) REFERENCES Plato(nombrePlato),
+  PRIMARY KEY (nombre,nombrePlato)
 );
 
 create table Compuesto (
-  idMenu VARCHAR(8),
-  idPlato VARCHAR(8),
-  FOREIGN KEY (idMenu) REFERENCES Menu (idMenu),
-  FOREIGN KEY (idPlato) REFERENCES Plato(idPlato),
-  PRIMARY KEY (idMenu,idPlato),
+  nombreMenu VARCHAR(8),
+  nombrePlato VARCHAR(8),
+  FOREIGN KEY (nombreMenu) REFERENCES Menu (nombreMenu),
+  FOREIGN KEY (nombrePlato) REFERENCES Plato(nombrePlato),
+  PRIMARY KEY (nombreMenu,nombrePlato),
   orden INT
 );
