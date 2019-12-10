@@ -1,23 +1,13 @@
 USE ddsi;
 
-DELIMITER |
-DROP TRIGGER IF EXISTS checkProductLimitINSERT |
-CREATE TRIGGER  BEFORE checkProductLimitINSERT INSERT ON Producto
-  FOR EACH ROW
-  BEGIN
-    CALL checkProductLimit(NEW.stock,NEW.limiteAlmacenamiento);
-  END |
-DELIMITER ;
+delimiter //
 
-DELIMITER |
-DROP PROCEDURE IF EXISTS checkProductLimit |
-CREATE PROCEDURE checkProductLimit(IN stock INT, IN limiteAlmacenamiento INT)
-READS SQL DATA
-  BEGIN
-    DECLARE msg varchar(124);
-    IF stock >= limiteAlmacenamiento THEN
-      SET msg = 'Error: El stock no puede superar al limite de almacenamiento"';
-      SIGNAL SQLSTATE '45000' SET message_text = msg;
+DROP TRIGGER IF EXISTS checkStock;
+CREATE TRIGGER checkStock BEFORE INSERT ON Producto
+FOR EACH ROW
+BEGIN
+    IF NEW.stock > NEW.limiteAlmacenamiento THEN
+      signal sqlstate '45000' SET message_text = 'El stock no puede superar al limite de almacenamiento';
     END IF;
-  END |
-DELIMITER ;
+END;//
+delimiter ;
