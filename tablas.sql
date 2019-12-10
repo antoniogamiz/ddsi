@@ -109,14 +109,16 @@ create table Contiene (
   idMenu VARCHAR(8),
   idCuenta VARCHAR(15),
   FOREIGN KEY (idMenu) REFERENCES Menu(idMenu),
-  FOREIGN KEY (idCuenta) REFERENCES Cliente(idCuenta)
+  FOREIGN KEY (idCuenta) REFERENCES Cliente(idCuenta),
+  PRIMARY KEY (idMenu,idCuenta)
 );
 
 create table Ingrediente (
   nombre VARCHAR(20),
   idPlato VARCHAR(8),
   FOREIGN KEY (nombre) REFERENCES Producto(nombre),
-  FOREIGN KEY (idPlato) REFERENCES Plato(idPlato)
+  FOREIGN KEY (idPlato) REFERENCES Plato(idPlato),
+  PRIMARY KEY (nombre,idPlato)
 );
 
 create table Compuesto (
@@ -124,5 +126,6 @@ create table Compuesto (
   idPlato VARCHAR(8),
   FOREIGN KEY (idMenu) REFERENCES Menu (idMenu),
   FOREIGN KEY (idPlato) REFERENCES Plato(idPlato),
+  PRIMARY KEY (idMenu,idPlato),
   orden INT
 );

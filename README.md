@@ -1,4 +1,4 @@
-~~~bash
+.~~~bash
 # configurar la base de datos (SOLO UNA VEZ)
 sudo apt install mysql-server
 sudo apt install mysql-client
