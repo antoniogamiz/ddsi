@@ -72,7 +72,7 @@ create table Cliente (
 );
 
 create table Reserva (
-  idReserva VARCHAR(15) PRIMARY KEY,
+  idReserva VARCHAR(25) PRIMARY KEY,
   nombre VARCHAR(20),
   fecha DATE,
   hora TIME,
