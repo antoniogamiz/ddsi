@@ -112,7 +112,7 @@ create table Contiene (
 
 create table Ingrediente (
   nombre VARCHAR(20),
-  nombrePlato VARCHAR(8),
+  nombrePlato VARCHAR(30),
   FOREIGN KEY (nombre) REFERENCES Producto(nombre),
   FOREIGN KEY (nombrePlato) REFERENCES Plato(nombrePlato),
   PRIMARY KEY (nombre,nombrePlato)
