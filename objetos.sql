@@ -27,11 +27,12 @@ INSERT INTO Producto VALUES ("arroz"    , 5  , '2020/12/01',
 
 -- Laura
 
-INSERT INTO Plato VALUES ( "hamburguesa" , 12 , "carne" );
-INSERT INTO Plato VALUES ( "risotto"	 , 14 , "arroz" );
+INSERT INTO Plato VALUES ( "hamburguesa" , 12);
+INSERT INTO Plato VALUES ( "risotto"	 , 14);
 
 INSERT INTO Ingrediente VALUES ( "tomate"  , "hamburguesa");
 INSERT INTO Ingrediente VALUES ( "cebolla" , "hamburguesa");
 INSERT INTO Ingrediente VALUES ( "queso"   , "hamburguesa");
 INSERT INTO Ingrediente VALUES ( "queso"   , "risotto");
+
 
