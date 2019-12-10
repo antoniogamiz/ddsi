@@ -2,9 +2,9 @@ USE ddsi;
 
 create TRIGGER dni_no_unico
 before INSERT or UPDATE ON Empleado
-# FOR EACH ROW
+ FOR EACH ROW
     DECLARE 
-        dni_unico EXCEPTION;
+        dni_no_unico EXCEPTION;
         PRAGMA EXCEPTION_INIT (dni_no_unico, -1);
     BEGIN
     IF EXISTS (SELECT * FROM Empleado AS e WHERE e.DNI =:new.DNI)
