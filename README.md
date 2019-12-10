@@ -24,6 +24,9 @@ sudo /etc/init.d/mysql start
 # login en la base de datos
 mysql -u root -p
 
+#abrir la base de datos
+use ddsi
+
 # cargar las tablas y los datos
 mysql -u root -p < tablas.sql
 mysql -u root -p < objetos.sql
