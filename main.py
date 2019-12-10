@@ -29,6 +29,12 @@ class App(object):
         self.query_button.grid(row=index, column=0, columnspan=5)
         index += 1
 
+        self.query_button = Button(window, text="Add plate")
+        self.query_button.configure(command=self.insert_plate)
+        self.query_button.grid(row=index, column=0, columnspan=5)
+        index +=1
+
+
     def query(self):
         print()
         print(self.query_msg)
@@ -118,14 +124,9 @@ class App(object):
 
         self.plate_name = self.new_entry(self.plate_window, "Name: ", 0)
         self.plate_price = self.new_entry(self.plate_window, "Price: ", 1)
-        self.plate_ingredient = self.new_entry(
-            self.plate_window, "Ingrediente principal: ", 2)
-	
-	self.plate_ingredient2 = self.new_entry(
-            self.plate_window, "Ingrediente secundario: ", 3)
-	
-	 self.plate_ingredient3 = self.new_entry(
-            self.plate_window, "Ingrediente terciario: ", 4)
+        self.plate_ingredient = self.new_entry(self.plate_window, "Ingrediente principal: ", 2)
+        self.plate_ingredient2 = self.new_entry(self.plate_window, "Ingrediente secundario: ", 3)
+        self.plate_ingredient3 = self.new_entry(self.plate_window, "Ingrediente terciario: ", 4)
 	
 
 
@@ -137,12 +138,13 @@ def add_plate(self):
         name = self.plate_name.get()
         price = int(self.plate_price.get())
         ingredient = self.plate_ingredient.get()
-	ingredient2 = self.plate_ingredient2.get()
-	ingredient3 = self.plate_ingredient3.get()
-        self.query_msg = 'INSERT INTO Plato VALUES ("{}", {}, {}, "{}")'.format(name, price, ingredient)  
-	self.query_msg = 'INSER INTO Ingrediente VALUES ("{}", "{}")'.format(name, 
-    
-	self.query() 
+        ingredient2 = self.plate_ingredient2.get()
+        ingredient3 = self.plate_ingredient3.get()
+        self.query_msg = 'INSERT INTO Plato VALUES ("{}", {})'.format(name, price)  
+        self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(name, ingredient)
+        self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(name, ingredient2)
+        self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(name, ingredient3)
+        self.query() 
 
 
 def main(argv):
