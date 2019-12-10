@@ -1,32 +1,22 @@
 USE ddsi;
 
 DELIMITER |
-DROP TRIGGER IF EXISTS checkUniversoNombreINSERT |
-CREATE TRIGGER checkUniversoNombreINSERT BEFORE INSERT ON Universo
+DROP TRIGGER IF EXISTS checkProductLimitINSERT |
+CREATE TRIGGER  BEFORE checkProductLimitINSERT INSERT ON Producto
   FOR EACH ROW
   BEGIN
-    CALL checkUniversoNombre(NEW.nombre);
+    CALL checkProductLimit(NEW.stock,NEW.limiteAlmacenamiento);
   END |
 DELIMITER ;
 
 DELIMITER |
-DROP TRIGGER IF EXISTS checkUniversoNombreUPDATE |
-CREATE TRIGGER checkUniversoNombreUPDATE BEFORE UPDATE ON Universo
-  FOR EACH ROW
-  BEGIN
-    CALL checkUniversoNombre(NEW.nombre);
-  END |
-DELIMITER ;
-
-DELIMITER |
-DROP PROCEDURE IF EXISTS checkUniversoNombre |
-CREATE PROCEDURE checkUniversoNombre(IN nuevoNombre VARCHAR(32))
+DROP PROCEDURE IF EXISTS checkProductLimit |
+CREATE PROCEDURE checkProductLimit(IN stock INT, IN limiteAlmacenamiento INT)
 READS SQL DATA
   BEGIN
     DECLARE msg varchar(124);
-    IF EXISTS (SELECT * FROM Universo as uni WHERE uni.nombre = nuevoNombre) THEN
-      SET msg = concat('Error: El nombre de universo "', cast(nuevoNombre as char));
-      SET msg = concat(msg, '", ya existe.');
+    IF stock >= limiteAlmacenamiento THEN
+      SET msg = 'Error: El stock no puede superar al limite de almacenamiento"';
       SIGNAL SQLSTATE '45000' SET message_text = msg;
     END IF;
   END |

@@ -41,7 +41,8 @@ create table Empleado (
   DNI VARCHAR(9),
   nombre VARCHAR(60) NOT NULL,
   nomina INT,
-  CONSTRAINT puestoTrabajo FOREIGN KEY (nombre) REFERENCES PuestoTrabajo(nombre),
+  puestoTrabajo VARCHAR(60) NOT NULL,
+  FOREIGN KEY (puestoTrabajo) REFERENCES PuestoTrabajo(nombre),
   PRIMARY KEY (DNI)
 );
 

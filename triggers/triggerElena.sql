@@ -2,7 +2,7 @@ USE ddsi;
 
 create TRIGGER dni_no_unico
 before INSERT or UPDATE ON Empleado
-# FOR EACH ROW
+FOR EACH ROW
     DECLARE 
         dni_unico EXCEPTION;
         PRAGMA EXCEPTION_INIT (dni_no_unico, -1);
