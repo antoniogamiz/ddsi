@@ -1,20 +1,14 @@
 USE ddsi;
 
-create TRIGGER dni_no_unico
-before INSERT or UPDATE ON Empleado
- FOR EACH ROW
-    DECLARE 
-        dni_no_unico EXCEPTION;
-        PRAGMA EXCEPTION_INIT (dni_no_unico, -1);
+delimiter //
+
+DROP TRIGGER IF EXISTS dni_no_unico;
+CREATE TRIGGER dni_no_unico BEFORE INSERT ON Empleado
+FOR EACH ROW
     BEGIN
-    IF EXISTS (SELECT * FROM Empleado AS e WHERE e.DNI =:new.DNI)
-    THEN
-        RAISE dni_no_unico;
-    END_IF;
-    
-    EXCEPTION
-        WHEN dni_no_unico THEN
-            DBMS_OUTPUT.PUT_LINE (“Error: ya hay un empleado con ese DNI en el sistema”); 
-            RAISE DUP_VAL_ON_INDEX;
-        END;
-END;
+    IF EXISTS (SELECT * FROM Empleado AS e WHERE e.DNI = NEW.DNI) THEN
+        signal sqlstate '45000' SET message_text = 'No puede dos empleados con el mismo DNI';
+    END IF;
+END;//
+
+delimiter ;
