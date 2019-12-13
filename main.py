@@ -127,14 +127,12 @@ class App(object):
         self.plate_ingredient = self.new_entry(self.plate_window, "Ingrediente principal: ", 2)
         self.plate_ingredient2 = self.new_entry(self.plate_window, "Ingrediente secundario: ", 3)
         self.plate_ingredient3 = self.new_entry(self.plate_window, "Ingrediente terciario: ", 4)
-	
-
 
         add_button = Button(self.plate_window, text="Add")
         add_button.configure(command=self.add_plate)
-        add_button.grid(row=5, column=0, columnspan=4)
+        add_button.grid(row=7, column=0, columnspan=4)
 
-def add_plate(self):
+    def add_plate(self):
         name = self.plate_name.get()
         price = int(self.plate_price.get())
         ingredient = self.plate_ingredient.get()
