@@ -23,7 +23,7 @@ class App(object):
         self.query_button.configure(command=self.insert_product)
         self.query_button.grid(row=index, column=0, columnspan=5)
         index += 1
-        
+
         self.query_button = Button(window, text="Add employee")
         self.query_button.configure(command=self.insert_employee)
         self.query_button.grid(row=index, column=0, columnspan=5)
@@ -32,12 +32,11 @@ class App(object):
         self.query_button = Button(window, text="Add plate")
         self.query_button.configure(command=self.insert_plate)
         self.query_button.grid(row=index, column=0, columnspan=5)
-        index +=1
+        index += 1
 
         self.query_button = Button(window, text="Add reservation")
         self.query_button.configure(command=self.insert_reservation)
         self.query_button.grid(row=index, column=0, columnspan=5)
-        
 
     def query(self):
         print()
@@ -51,7 +50,7 @@ class App(object):
         self.query()
         rows = self.cursor.fetchall()
         print(rows)
-        
+
     def query_employees(self):
         self.query_msg = "SELECT * FROM Empleado"
         self.query()
@@ -70,9 +69,8 @@ class App(object):
         rows = self.cursor.fetchall()
         print(rows)
 
-
-
     # auxiliar function
+
     def new_entry(self, window, text, row):
         label = Label(window, text=text)
         label.grid(row=row, column=0, columnspan=1)
@@ -127,18 +125,21 @@ class App(object):
         paysheet = int(self.employee_paysheet.get())
         job = self.employee_job.get()
         self.query_msg = 'INSERT INTO Empleado VALUES ("{}", {}, {}, "{}")'.format(
-            id,name, paysheet, job)
-        self.query()        
-	
+            id, name, paysheet, job)
+        self.query()
+
     def insert_plate(self):
         self.plate_window = Tk()
         self.plate_window.wm_title("Menu Management")
 
         self.plate_name = self.new_entry(self.plate_window, "Name: ", 0)
         self.plate_price = self.new_entry(self.plate_window, "Price: ", 1)
-        self.plate_ingredient = self.new_entry(self.plate_window, "Ingrediente principal: ", 2)
-        self.plate_ingredient2 = self.new_entry(self.plate_window, "Ingrediente secundario: ", 3)
-        self.plate_ingredient3 = self.new_entry(self.plate_window, "Ingrediente terciario: ", 4)
+        self.plate_ingredient = self.new_entry(
+            self.plate_window, "Ingrediente principal: ", 2)
+        self.plate_ingredient2 = self.new_entry(
+            self.plate_window, "Ingrediente secundario: ", 3)
+        self.plate_ingredient3 = self.new_entry(
+            self.plate_window, "Ingrediente terciario: ", 4)
 
         add_button = Button(self.plate_window, text="Add")
         add_button.configure(command=self.add_plate)
@@ -150,33 +151,42 @@ class App(object):
         ingredient = self.plate_ingredient.get()
         ingredient2 = self.plate_ingredient2.get()
         ingredient3 = self.plate_ingredient3.get()
-        self.query_msg = 'INSERT INTO Plato VALUES ("{}", {})'.format(name, price)  
-        self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(name, ingredient)
-        self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(name, ingredient2)
-        self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(name, ingredient3)
-        self.query() 
+        self.query_msg = 'INSERT INTO Plato VALUES ("{}", {})'.format(
+            name, price)
+        self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
+            name, ingredient)
+        self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
+            name, ingredient2)
+        self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
+            name, ingredient3)
+        self.query()
 
     def insert_reservation(self):
-        self.reservation_window=Tk()
+        self.reservation_window = Tk()
         self.reservation_window.wm_title("Client Management")
-        
-        self.reservation_name = self.new_entry(self.reservation_window, "Name: ", 0)
-        self.reservation_DNI = self.new_entry(self.reservation_window, "DNI: ", 1)
-        self.reservation_date = self.new_entry(self.reservation_window, "Date: ", 2)
-        self.reservation_time = self.new_entry(self.reservation_window, "Time: ", 3)
+
+        self.reservation_name = self.new_entry(
+            self.reservation_window, "Name: ", 0)
+        self.reservation_DNI = self.new_entry(
+            self.reservation_window, "DNI: ", 1)
+        self.reservation_date = self.new_entry(
+            self.reservation_window, "Date: ", 2)
+        self.reservation_time = self.new_entry(
+            self.reservation_window, "Time: ", 3)
 
         add_button = Button(self.reservation_window, text="Add")
         add_button.configure(command=self.add_reservation)
         add_button.grid(row=7, column=0, columnspan=4)
 
     def add_reservation(self):
-        name=self.reservation_name.get()
-        dni=self.reservation_DNI.get()
-        date=self.reservation_date.get()
-        time=self.reservation_time.get()
-        idReservation=date.replace("/","")+dni
+        name = self.reservation_name.get()
+        dni = self.reservation_DNI.get()
+        date = self.reservation_date.get()
+        time = self.reservation_time.get()
+        idReservation = date.replace("/", "")+dni
 
-        self.query_msg='INSERT INTO RESERVATION("{}","{}",\'{}\',\'{}\',"{}")'.format(idReservation,name,date,time,dni)
+        self.query_msg = 'INSERT INTO Reserva VALUES("{}","{}",\'{}\',\'{}\',"{}")'.format(
+            idReservation, name, date, time, dni)
         self.query()
 
 
