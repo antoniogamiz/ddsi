@@ -153,10 +153,13 @@ class App(object):
         ingredient3 = self.plate_ingredient3.get()
         self.query_msg = 'INSERT INTO Plato VALUES ("{}", {})'.format(
             name, price)
+        self.query()
         self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
             name, ingredient)
+        self.query()
         self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
             name, ingredient2)
+        self.query()
         self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
             name, ingredient3)
         self.query()
