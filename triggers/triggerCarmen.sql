@@ -1,33 +1,21 @@
 USE ddsi;
 
 DELIMITER |
-DROP TRIGGER IF EXISTS dni_validoINSERT |
-CREATE TRIGGER dni_validoINSERT BEFORE INSERT ON Jugador
+CREATE TRIGGER dni_validoINSERT BEFORE INSERT ON Reserva
   FOR EACH ROW
   BEGIN
-    CALL dni_valido(NEW.dni);
+ 	IF NOT EXISTS (SELECT * FROM Cliente as cliente WHERE cliente.DNI = NEW.DNI) THEN
+		signal sqlstate '45000' SET message_text = 'No se ha podido realizar la reserva, no es un cliente todavía';
+    END IF;
   END |
 DELIMITER ;
 
 DELIMITER |
-DROP TRIGGER IF EXISTS dni_validoUPDATE |
-CREATE TRIGGER dni_validoUPDATE BEFORE UPDATE ON Jugador
+CREATE TRIGGER unica_reserva BEFORE INSERT ON Reserva
   FOR EACH ROW
   BEGIN
-    CALL dni_valido(NEW.dni);
-  END |
-DELIMITER ;
-
-DELIMITER |
-DROP PROCEDURE IF EXISTS dni_valido |
-CREATE PROCEDURE dni_valido(IN nuevoDNI VARCHAR(9))
-READS SQL DATA
-  BEGIN
-    DECLARE msg varchar(124);
-    IF EXISTS (SELECT * FROM Jugador as j WHERE j.dni = nuevoDNI) THEN
-      SET msg = concat('Error: El DNI "', cast(nuevoDNI as char));
-      SET msg = concat(msg, '", ya existe en la base de datos.');
-      SIGNAL SQLSTATE '45000' SET message_text = msg;
+    IF EXISTS (SELECT * FROM Reserva as reserva WHERE (reserva.DNI = NEW.DNI AND reserva.fecha=NEW.fecha AND reserva.hora=NEW.hora)) THEN
+		signal sqlstate '45000' SET message_text = 'Ya hay una reserva a la misma hora y día';
     END IF;
   END |
 DELIMITER ;
