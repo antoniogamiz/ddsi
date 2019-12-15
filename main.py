@@ -155,13 +155,13 @@ class App(object):
             name, price)
         self.query()
         self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
-            name, ingredient)
+            ingredient, name)
         self.query()
         self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
-            name, ingredient2)
+            ingredient2, name)
         self.query()
         self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
-            name, ingredient3)
+            ingredient3, name)
         self.query()
 
     def insert_reservation(self):

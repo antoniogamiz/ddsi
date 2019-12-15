@@ -113,8 +113,8 @@ create table Contiene (
 create table Ingrediente (
   nombre VARCHAR(20),
   nombrePlato VARCHAR(30),
-  FOREIGN KEY (nombre) REFERENCES Producto(nombre),
-  FOREIGN KEY (nombrePlato) REFERENCES Plato(nombrePlato),
+  FOREIGN KEY (nombre) REFERENCES Producto(nombre) ON UPDATE CASCADE,
+  FOREIGN KEY (nombrePlato) REFERENCES Plato(nombrePlato) ON UPDATE CASCADE,
   PRIMARY KEY (nombre,nombrePlato)
 );
 
