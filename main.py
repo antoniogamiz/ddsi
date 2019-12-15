@@ -151,9 +151,10 @@ class App(object):
         ingredient = self.plate_ingredient.get()
         ingredient2 = self.plate_ingredient2.get()
         ingredient3 = self.plate_ingredient3.get()
-        self.query_msg = 'INSERT INTO Plato VALUES ("{}", {})'.format(
-            name, price)
+       
+        self.query_msg = 'INSERT INTO Plato VALUES ("{}", {})'.format( name, price)
         self.query()
+        
         self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
             ingredient, name)
         self.query()
@@ -163,6 +164,8 @@ class App(object):
         self.query_msg = 'INSERT INTO Ingrediente VALUES ("{}", "{}")'.format(
             ingredient3, name)
         self.query()
+
+	
 
     def insert_reservation(self):
         self.reservation_window = Tk()
