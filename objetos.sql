@@ -49,15 +49,6 @@ INSERT INTO Reserva VALUES ("34563456B20191203","Diego Ruiz",'2019/12/03','12:34
 INSERT INTO Reserva VALUES ("26385476M20191204","Juan García",'2019/12/04','15:44:03',"26385476M");
 INSERT INTO Reserva VALUES ("76589657X20191206","Andrea Ramírez",'2019/12/06','21:14:32',"76589657X");
 
-DELIMITER |
 
-CREATE TRIGGER noExisteIngrediente BEFORE INSERT ON Ingrediente
-  FOR EACH ROW
-  BEGIN
- 	IF NOT EXISTS (SELECT * FROM Producto as a WHERE a.nombre = NEW.nombre) THEN
-		signal sqlstate '45000' SET message_text = 'El ingrediente no se encuentra disponible. Plato añadido sin el ingrediente';
-	END IF;
-END |
-DELIMITER ;
 
 
