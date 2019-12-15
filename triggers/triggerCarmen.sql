@@ -7,6 +7,7 @@ CREATE TRIGGER dni_validoINSERT BEFORE INSERT ON Reserva
  	IF NOT EXISTS (SELECT * FROM Cliente as cliente WHERE cliente.DNI = NEW.DNI) THEN
 		signal sqlstate '45000' SET message_text = 'No se ha podido realizar la reserva, no es un cliente todavía';
     END IF;
+    
   END |
 DELIMITER ;
 
