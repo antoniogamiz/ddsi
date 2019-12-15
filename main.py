@@ -124,7 +124,7 @@ class App(object):
         id = int(self.employee_id.get())
         paysheet = int(self.employee_paysheet.get())
         job = self.employee_job.get()
-        self.query_msg = 'INSERT INTO Empleado VALUES ("{}", {}, {}, "{}")'.format(
+        self.query_msg = 'INSERT INTO Empleado VALUES ("{}", "{}", {}, "{}")'.format(
             id, name, paysheet, job)
         self.query()
 
